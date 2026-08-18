@@ -330,11 +330,9 @@ func (w *Wheel) addEntry(e *entry) {
 	}
 	if w.overflow == nil {
 		w.overflow = newLevel(w.interval, w.wheelSize, w.currentTime)
-		w.overflow.root = w.overflow
-		w.overflow.ready = &bucketHeap{}
-		w.overflow.queue = &entryHeap{}
-		heapInit(w.overflow.ready)
-		heapInit(w.overflow.queue)
+		w.overflow.root = w.root
+		w.overflow.ready = w.root.ready
+		w.overflow.queue = w.root.queue
 	}
 	w.overflow.addEntry(e)
 }

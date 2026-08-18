@@ -110,6 +110,7 @@ func (s *Scheduler) ScheduleWith(delay time.Duration, opts ScheduleOptions, fn f
 
 	s.wheel.Add(id, delay, opts.Priority, s.wrap(id, fn))
 	atomic.AddInt64(&s.scheduled, 1)
+	s.signalWake()
 	return id, nil
 }
 
